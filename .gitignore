@@ -40,3 +40,4 @@ Thumbs.db
 #########
 *.rds
 *.Rporj
+.Rproj.user

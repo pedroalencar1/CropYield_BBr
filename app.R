@@ -7,23 +7,22 @@ Author: Pedro Alencar
 "
 
 #%% Load packages --------------------------------------------------------------
-pacman::p_load(
-  dplyr,
-  tidyr,
-  ggplot2,
-  magrittr,
-  shiny,
-  shinythemes,
-  bslib,
-  plotly,
-  leaflet,
-  RColorBrewer,
-  fst,
-  tibble,
-  tibbletime,
-  lubridate,
-  sf
-)
+library(shiny) # comment out when pushing to shinyapps.io
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(magrittr)
+library(shinythemes)
+library(bslib)
+library(plotly)
+library(leaflet)
+library(RColorBrewer)
+library(fst)
+library(tibble)
+library(tibbletime)
+library(lubridate)
+library(sf)
+
 
 #%% Load datasets --------------------------------------------------------------
 df <- fst::read_fst("./pre-processing/crop_bb_complete.bin")
@@ -70,7 +69,7 @@ varieties <- unique(filter(df, Crop == "Getreide")$Variety)
 pal_1 <- brewer.pal(n = 7, name = 'YlOrRd')[c(7,4,2)]
 
 
-if (interactive()) {
+# if (interactive()) {
 #%% User interface -------------------------------------------------------------
 ui <- fluidPage(
 
@@ -146,7 +145,6 @@ ui <- fluidPage(
                      tags$br(),
                      "Berlin, 14.01.2023"
                      ),
-                  # h5(tags$a(href="https://www.tu.berlin/oekohydro/team/pedro-alencar/", "Pedro Alencar")),
                   br(),
                   h4("Download the data!"),
                   downloadButton("downloadData", "Download"),
@@ -390,4 +388,4 @@ server <- function(input, output, session) {
 
 #%% Build app ------------------------------------------------------------------
 shinyApp(ui, server)
-}
+# }

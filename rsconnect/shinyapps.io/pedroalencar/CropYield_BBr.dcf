@@ -1,0 +1,14 @@
+name: CropYield_BBr
+title: CropYield_BBr
+username:
+account: pedroalencar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8045777
+bundleId: 6739102
+url: https://pedroalencar.shinyapps.io/CropYield_BBr/
+when: 1673872748.20474
+lastSyncTime: 1673872748.20475
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: LICENSE|README.md
