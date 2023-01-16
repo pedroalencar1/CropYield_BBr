@@ -1,0 +1,27 @@
+"
+Preparation of data to generate shiny application
+
+Author: Pedro Alencar
+
+13.01.2023
+"
+
+pacman::p_load(dplyr, tidyr, ggplot2, magrittr, shiny, shinythemes, plotly,
+               leaflet, RColorBrewer, fst, tibble, tibbletime, lubridate)
+
+df <- read.csv("./data_hanna/crop_Brandenburg.csv", header = T, sep = ";") %>%
+  mutate(A_ha =  as.numeric(A_ha),
+         P_per_A =  as.numeric(P_per_A),
+         P_t =  as.numeric(P_t))
+View(df)
+
+df_complete <- df %>% pivot_wider(names_from = "Year", values_from = "P_per_A") %>%
+  mutate(`2001-2005` = (6*`2001-2006` - `2006`)/5) %>%
+  select(-`2001-2006`) %>%
+  select(c(Landkreis:Variety, `2001-2005`, `2006`:`2021`, A_ha, P_t)) %>%
+  pivot_longer(cols = 4:20, names_to = "Year", values_to = "P_per_A") %>%
+  select(c(1,2,3,4,5,7,6))
+
+fst::write_fst(df_complete, "crop_bb_complete.bin")
+
+

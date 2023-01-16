@@ -1,0 +1,74 @@
+
+pal_1 <- brewer.pal(n = 7, name = 'YlOrRd')[c(7,4,2)]
+
+
+crop <- "Getreide"
+variety <- "Getreide insgesamt"
+year <- 2006
+landkreis <- "Barnim"
+
+# get selection production
+prod_series <- df %>% filter(Crop == crop,
+                             Variety == variety,
+                             Landkreis == landkreis)
+
+# output$graph1 <- renderPlotly({
+  
+  plot_ly(prod_series, x = ~as.factor(Year)) %>%
+    add_lines(
+      y = ~P_per_A,
+      name = "Prod. per Area",
+      yaxis = "y1",
+      line = list(color = pal_1[1]),
+      marker = list(color = pal_1[1])
+    )  %>%
+    add_lines(
+      y = ~P_t,
+      name = "Total prod.",
+      yaxis = "y2",
+      line = list(color = pal_1[2]),
+      marker = list(color = pal_1[2])
+    )  %>%
+    layout(
+      title = paste0("Crop yield of ",crop, " (", variety, ") in ", landkreis),
+      xaxis = list(
+        title = "Date",
+        domain = c(0, 0.95),
+        type = "date",
+        tickmode = "auto",
+        nticks = 20,
+        dtick = "M1",
+        ticks = "outside"
+      ),
+      yaxis = list(
+        title = "Produciton (Mg/ha)",
+        side = "left",
+        color = "black",
+        position = 0,
+        anchor = "free",
+        nticks = 6,
+        rangemode="tozero",
+        scaleanchor='y', scaleratio=1, constraintoward='bottom', secondary_y=T,
+        # range = c(-10, 35),
+        dtick = 10
+      ),
+      yaxis2 = list(
+        title = "Production (Mg)",
+        side = "right",
+        color = "black",
+        overlaying = "y",
+        anchor = "free",
+        position = 0.95,
+        nticks =6,
+        rangemode="tozero",
+        scaleanchor='y2',scaleratio=1, constraintoward='bottom', secondary_y=F,
+        dtick = 20000
+      ),
+      showlegend = T,
+    )
+
+  
+  RColorBrewer::display.brewer.pal(n = 7, name = 'YlOrRd')
+  
+  brewer.pal(n = 7, name = 'YlOrRd')[4:6]
+  
