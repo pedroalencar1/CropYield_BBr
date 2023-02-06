@@ -25,13 +25,8 @@ library(sf)
 
 
 #%% Load datasets --------------------------------------------------------------
-df <- fst::read_fst("./pre-processing/crop_bb_complete.bin")
-
-for (i in 1:nrow(df)) {
-  if (is.na(df$P_per_A[i])) {
-    df$P_per_A[i] <- df$P_t[i] / df$A_ha[i]
-  }
-}
+# df <- fst::read_fst("./pre-processing/crop_bb_complete.bin")
+df <- data.table::fread("crop_bb_complete.csv")
 
 
 borders <- sf::read_sf("./GIS/bbr.shp")
